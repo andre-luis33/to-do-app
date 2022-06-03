@@ -1,0 +1,76 @@
+main {
+   height: 100vh;
+   color: #fff;
+}
+
+.count-jobs {
+   background-color: var(--primary);
+   font-size: 2rem;
+   
+   height: 40px;
+   width: 40px;
+   border-radius: 50%;
+
+   display: inline-block;
+}
+
+.form-control {
+   background-color: #222;
+   border: 1px solid #222;
+   color: #fff;
+}
+
+.form-control:focus {
+   color: #fff;
+   box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+   border: 1px solid #fff;
+   background-color: #222;
+}
+
+.form-row {
+   justify-content: space-between;
+}
+
+hr {
+   background-color: #bbb;
+}
+
+ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+
+li {
+   padding: 20px 0 10px 0;
+   display: flex;
+   justify-content: space-between;
+}
+
+li:not(:last-child) {
+   border-bottom: 1px solid #bbb;
+}
+
+li span {
+   font-size: 1.5rem;
+}
+
+li span.job-done {
+   text-decoration: line-through;
+}
+
+li .title-wrapper {
+   display: flex;
+   flex-direction: column;
+
+   position: relative;
+}
+
+li .title-wrapper .start-time {
+   position: absolute;
+   font-size: .85rem;
+   top: -15px;
+   width: 150px;
+
+   color: #bbb;
+}
