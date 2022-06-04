@@ -1,6 +1,39 @@
+
+main.dark {
+   --color: #fff;
+   --background-color: #343A40;
+}
+
+main.light {
+   --color: #222;
+   --background-color: #eee;
+}
+
 main {
-   height: 100vh;
-   color: #fff;
+   min-height: 100vh;
+   transition: all .2s;
+   color: var(--color);
+   background-color: var(--background-color);
+   padding-bottom: 20px;
+}
+
+
+.container {
+   position: relative;
+}
+
+#theme-icon {
+   position: absolute;
+   right: 15px;
+   top: 15px;
+   font-size: 1.8rem;
+
+   transition: .2s color;
+   cursor: pointer;
+}
+
+#theme-icon:hover {
+   color: #aaa;
 }
 
 .count-jobs {
@@ -12,15 +45,31 @@ main {
    border-radius: 50%;
 
    display: inline-block;
+   color: #fff;
 }
 
+
 .form-control {
+   transition: all .2s;
+}
+
+.input-container {
+   position: sticky;
+   top: 10px;
+   z-index: 1;
+   background-color: var(--background-color);
+   padding-bottom: 5px;
+   width: 100%;
+   transition: .2s all;
+}
+
+main.dark .form-control {
    background-color: #222;
    border: 1px solid #222;
    color: #fff;
 }
 
-.form-control:focus {
+main.dark .form-control:focus {
    color: #fff;
    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
    border: 1px solid #fff;
@@ -45,6 +94,17 @@ li {
    padding: 20px 0 10px 0;
    display: flex;
    justify-content: space-between;
+   animation: li-show .5s forwards;
+}
+
+@keyframes li-show {
+   from {
+      opacity: 0;
+   }
+   
+   to {
+      opacity: 1;
+   }
 }
 
 li:not(:last-child) {
@@ -73,4 +133,38 @@ li .title-wrapper .start-time {
    width: 150px;
 
    color: #bbb;
+}
+
+@media (max-width: 768px) {
+
+   #theme-icon {
+      top: 2.75rem;
+      left: 15px;
+      right: unset;
+   }
+
+   .title h1 {
+      font-size: 2rem;
+   }
+
+   .btn-submit-job {
+      margin-top: 10px;
+      display: block;
+      width: 100%;
+   }
+
+   li .title-wrapper {
+      width: 70%;
+      justify-content: center;
+      padding-right: 10px;
+   }
+
+   li span {
+      font-size: 1rem;
+   }
+
+   li .btn-wrapper button {
+      width: 100%;
+      margin-bottom: 5px;
+   }
 }
