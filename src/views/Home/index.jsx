@@ -3,6 +3,11 @@ import './style.css'
 import { useState } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
 
+import { useNavigate } from 'react-router-dom'
+
+import { Button, Modal } from 'react-bootstrap'
+import { hotjar } from 'react-hotjar'
+
 
 const formatDate = dateObject => {
    console.log(dateObject.getDay())
@@ -48,6 +53,19 @@ const App = () => {
    const [theme, setTheme] = useState(preferedTheme)
    const [jobs, setJobs] = useState(storedJobs ? JSON.parse(storedJobs) : defaultJobs)
    const [inputValue, setInputValue] = useState('')
+   const [show, setShow] = useState(false)
+
+   const handleShow = () => setShow(true)
+   const handleClose = () => {
+      setShow(false)
+      navigate('/', { replace: true })
+      hotjar.stateChange('/')
+   }
+
+   const [currentJobTitle, setCurrentJobTitle] = useState('')
+   const [currentCreatedAt, setCurrentCreatedAt] = useState('')
+
+   const navigate = useNavigate()
 
    const pushJob = (job) => {
       let lastJobId = jobs.length ? [...jobs].pop().id : 0
@@ -71,6 +89,15 @@ const App = () => {
 
       pushJob(inputValue)
       setInputValue('')
+   }
+
+   const viewJob = jobId => {
+      const { id, title, createdAt } = jobs.find(job => job.id === jobId)
+      handleShow()
+      setCurrentJobTitle(`#${id} - ${title}`)
+      setCurrentCreatedAt(createdAt)
+      navigate(`/?id=${id}`, { replace: true })
+      hotjar.stateChange(`/?id=${id}`)
    }
 
    const deleteJob = id => {
@@ -111,8 +138,6 @@ const App = () => {
 
    return (
       <main className={theme === 'dark' ? 'dark' : 'light'}>
-
-
          <div className="container">
             <span id="theme-icon" onClick={handleThemeClick}>
                {theme === 'light' ? <FaMoon /> : <FaSun />}
@@ -142,10 +167,11 @@ const App = () => {
                      return (
                         <li key={job.id}>
                            <div className="title-wrapper">
-                              <span class="start-time">{job.createdAt}</span>
+                              <span className="start-time">{job.createdAt}</span>
                               <span className={job.done ? 'job-done' : ''}>#{job.id} - {job.title}</span>
                            </div>
                            <div className="btn-wrapper">
+                              <button className={`btn ${btnOnlyMobile} btn-info mr-2`} onClick={_ => viewJob(job.id)}>Ver</button>
                               {
                                  job.done ? 
                                     <button className={`btn ${btnOnlyMobile} btn-warning mr-2`} onClick={_ => undoJob(job.id)}>Desmarcar</button>
@@ -161,6 +187,24 @@ const App = () => {
                </ul>
             </div>
          </div>
+
+         <Modal show={show} onHide={handleClose}>
+            <Modal.Header>
+               <Modal.Title>Mais Informações</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+               <p>
+                  {currentJobTitle}
+               </p>
+               <i>Criado em {currentCreatedAt}</i>
+            </Modal.Body>
+            <Modal.Footer>
+               <Button variant="secondary" onClick={handleClose}>
+                  Fechar
+               </Button>
+            </Modal.Footer>
+         </Modal>
+
       </main>
    )
 }
