@@ -8,7 +8,7 @@ Simples app para iniciar os conhecimentos em react, e manipulação de arrays.
 - O serviço de hospedagem é o Heroku
 
 ## Live Demo
-https://dbest-to-do-app.herokuapp.com/
+https://to-do-app-nine-psi.vercel.app/
 
 ## Quick start
 
