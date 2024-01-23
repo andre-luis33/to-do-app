@@ -5,7 +5,7 @@ Simples app para iniciar os conhecimentos em react, e manipulação de arrays.
 - O app usa componentes funcionais.
 - Para mudar os elementos da DOM, foi utilizado o hook `useState`
 - Para salvar os to-dos, foi utilizado o `localStorage`.
-- O serviço de hospedagem é o Heroku
+- O serviço de hospedagem é a Vercel
 
 ## Live Demo
 https://to-do-app-nine-psi.vercel.app/
